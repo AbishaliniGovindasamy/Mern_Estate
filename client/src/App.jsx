@@ -18,8 +18,9 @@ export default function App() {
       <Route  element={<PrivateRoute/>} />
 
       <Route path="/profile" element={<Profile/>} >
-      <Route path="/about" element={<About/>} />
       </Route>
+            <Route path="/about" element={<About/>} />
+
 
     </Routes>
     </BrowserRouter>
