@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import  { useDispatch, useSelector } from 'react-redux';
-import { signInStart,signInsuceess,signInFailure } from '../redux/user/userSlice.js';
+import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice.js';
 export default function SignIn() {
-  const [fromData , setFormData] = useState({});
+  const [formData , setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function SignIn() {
   const handleChange= (e) => {
     setFormData(
       {
-        ...fromData,
+        ...formData,
         [e.target.id]: e.target.value,
 
       }
@@ -28,7 +28,7 @@ export default function SignIn() {
         headers:{
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(fromData),
+        body: JSON.stringify(formData),
       } );
       const data = await res.json();
       if(data.success === false){
@@ -36,7 +36,7 @@ export default function SignIn() {
       
         return;
       }
-     dispatch(signInsuceess(data));
+     dispatch(signInSuccess(data));
       navigate('/');
       
     } catch (error) {
@@ -46,7 +46,7 @@ export default function SignIn() {
    
     
   };
-  console.log(fromData);
+  console.log(formData);
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl p-6 text-center font-semiboldmy-7'>
@@ -63,8 +63,8 @@ export default function SignIn() {
         </form>
         <div className='flex gap-2 mt-5'>
           <p>Don't Have an Account?</p>
-          <Link to={"/sign-in"}>
-          <span className='text-blue-700'>Sign-In</span></Link>
+          <Link to={"/sign-up"}>
+          <span className='text-blue-700'>Sign-UP</span></Link>
         </div>
         {error && <p className='text-red-500 mt-5'>{error}</p>}
         </div>
